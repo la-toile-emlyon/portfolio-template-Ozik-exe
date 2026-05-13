@@ -45,6 +45,9 @@ fetch('data.json')
     function genererTags(tags) {
       let html = '';
       // TODO : forEach sur tags → construire les <span class="tag">
+      tags.forEach(tag => {
+        html += `<span class="tag">${tag}</span>`
+      });
       return html;
     }
 
@@ -53,7 +56,11 @@ fetch('data.json')
     function genererLiens(liens) {
       let html = '';
       // TODO : forEach sur liens → construire les <li><a href="...">...</a></li>
+      liens.forEach(lien => {
+        html += `<li><a href="${lien.href}">${lien.label}</a></li>`;
+      });
       return html;
+
     }
 
 
@@ -62,10 +69,18 @@ fetch('data.json')
     // --------------------------------------------------
 
     // TODO : remplir le logo        → logoNav.textContent = ...
+
+    logoNav.textContent = data.logo
+
     // TODO : injecter les liens     → liensNav.innerHTML  = genererLiens(...)
+
+    liensNav.innerHTML = genererLiens(data.nav)
+    
     // TODO : remplir le bouton CTA  → ctaNav.textContent  = ...
     //                                 ctaNav.href          = ...
 
+    ctaNav.textContent = data.cta.label
+    ctaNav.href = data.cta.href
 
     // --------------------------------------------------
     //  HERO
@@ -74,23 +89,33 @@ fetch('data.json')
     // Le titre contient un mot en italique (balise <em>)
     // On utilise innerHTML pour pouvoir insérer des balises HTML
     // TODO : heroTitre.innerHTML = `${data.hero.titre} <em>${...}</em><br>${...}`
+    heroTitre.innerHTML = `${data.hero.titre} <em>${data.hero.accent}</em><br>${data.hero.suite}`;
     // TODO : heroSousTitre.textContent = ...
 
+    heroSousTitre.textContent = `${data.hero.sousTitre}`
 
     // --------------------------------------------------
     //  COMPÉTENCES
     // --------------------------------------------------
 
+    let htmlCompetence ="";
+
     // TODO : forEach sur data.competences
     // Pour chaque compétence, construire ce HTML et l'injecter :
-    //
-    // <div class="competence-card">
-    //   <h3>titre</h3>
-    //   <p>description</p>
-    //   <div class="tags"> genererTags(...) </div>
-    // </div>
-    //
-    // → sectionCompetences.insertAdjacentHTML('beforeend', carte)
+   data.competences.forEach(competence => {
+
+    htmlCompetence += <div class="competence-card">
+      <h3>${competence.titre}</h3>
+      <p>${competence.description}</p>
+      <div class="tags"> ${genererTags(competences.tag)}</div>
+    </div>
+
+    
+    
+    sectionCompetences.insertAdjacentHTML('beforeend', htmlCompetence)
+   });
+    
+    
 
 
     // --------------------------------------------------
