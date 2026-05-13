@@ -100,19 +100,16 @@ fetch('data.json')
 
     let htmlCompetence ="";
 
-    // TODO : forEach sur data.competences
-    // Pour chaque compétence, construire ce HTML et l'injecter :
    data.competences.forEach(competence => {
-
-    htmlCompetence += <div class="competence-card">
+     
+      htmlCompetence = `<div class="competence-card">
       <h3>${competence.titre}</h3>
       <p>${competence.description}</p>
-      <div class="tags"> ${genererTags(competences.tag)}</div>
-    </div>
-
-    
-    
-    sectionCompetences.insertAdjacentHTML('beforeend', htmlCompetence)
+      <div class="tags"> ${genererTags(competence.tags)} </div>
+      </div>`  
+      console.log(htmlCompetence);
+      
+    sectionCompetences.insertAdjacentHTML('beforeend', htmlCompetence);
    });
     
     
