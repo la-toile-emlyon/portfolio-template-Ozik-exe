@@ -122,7 +122,31 @@ fetch('data.json')
     // TODO : forEach sur data.projets
     // Toutes les cartes ont la même structure — le CSS s'occupe
     // d'inverser automatiquement les cartes paires (:nth-of-type(even))
-    //
+
+    let htmlProjet ="";
+
+   data.projets.forEach(projet => {
+      htmlProjet = `<article class="projet-card">
+      <div class="projet-content">
+        <div class="projet-top">
+          <h3>${projet.titre}</h3>
+          <div class="tags"> ${genererTags(projet.tags)} </div>
+        </div>
+        <div class="projet-bottom">
+          <p>${projet.description}</p>
+          <a href="${projet.href}" class="btn-projet">VOIR LE PROJET ↗</a>
+        </div>
+      </div>
+      <div class="projet-image">
+        <img src="${projet.image}" alt="${projet.titre}">
+      </div>
+    </article>`
+    console.log(htmlProjet);
+    
+    sectionProjets.insertAdjacentHTML('beforeend', htmlProjet)
+   });
+
+
     // <article class="projet-card">
     //   <div class="projet-content">
     //     <div class="projet-top">
@@ -138,8 +162,8 @@ fetch('data.json')
     //     <img src="image" alt="titre">
     //   </div>
     // </article>
-    //
-    // → sectionProjets.insertAdjacentHTML('beforeend', carte)
+    
+    // sectionProjets.insertAdjacentHTML('beforeend', carte)
 
 
     // --------------------------------------------------
@@ -148,13 +172,24 @@ fetch('data.json')
 
     // TODO : forEach sur data.parcours
     // Pour chaque item, construire ce HTML et l'injecter :
-    //
-    // <li class="parcours-item">
-    //   <p class="parcours-titre">annee - titre</p>
-    //   <p class="parcours-lieu">lieu</p>
-    // </li>
-    //
-    // → listeParcours.insertAdjacentHTML('beforeend', item)
+    
+   let htmlParcours ="";
+
+  data.parcours.forEach(parcour => {
+    htmlParcours = `<li class="parcours-item">
+      <p class="parcours-titre">${[parcour.titre]} - ${[parcour.annee]}</p>
+      <p class="parcours-lieu">${[parcour.lieu]}</p>
+    </li>`
+
+  listeParcours.insertAdjacentHTML('beforeend', htmlParcours)
+  });
+
+
+  logoFooter.textContent = data.logo
+  
+  liensFooter.innerHTML = genererLiens(data.nav)
+  ctaFooter.textContent = data.cta.label
+  ctaFooter.href = data.cta.href
 
 
     // --------------------------------------------------
